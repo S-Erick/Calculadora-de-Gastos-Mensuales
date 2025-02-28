@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Calculadora de Gastos Mensuales</title>
+</head>
+<body>
+    <section id="add-module-container">
+        <section id="add-module-pannel">
+            <button class="default-button" id="close-add-module-pannel-button">-</button>
+            <label>
+                Agregar modulo
+                <input type="text" id="module-name-input">
+            </label>
+            <button id="add-module-button">Añadir modulo</button>
+        </section>
+    </section>
+    <section id="container">
+        <form id="form">
+            <div class="module-containers" id="incomes-container">
+                <div class="module-container-scroll">
+                    <button type="button" class="default-button open-module-pannel-button">+</button>
+                    <div class="module" id="salario">
+                        <label>
+                            Salario
+                            <input type="number" class="number-input">
+                            <Button type="button" class="delte-module-button">Del</Button>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="module-containers" id="expenses-container">
+                <div class="module-container-scroll">
+                    <button type="button" class="default-button open-module-pannel-button">+</button>
+                    <div class="module" id="arriendo">
+                        <label>
+                            Arriendo
+                            <input type="number" class="number-input">
+                            <Button type="button" class="delte-module-button">Del</Button>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <aside id="results-container">
+            <div id="final-result"></div>
+            <div class="module-containers" id="percentages-container"></div>
+        </aside>
+    </section>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
