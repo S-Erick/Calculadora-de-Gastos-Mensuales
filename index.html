@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="styles.css">
     <title>Calculadora de Gastos Mensuales</title>
 </head>
-<body>
+<body id="body">
     <section id="add-module-container">
         <section id="add-module-pannel">
             <button class="default-button" id="close-add-module-pannel-button">-</button>
@@ -19,33 +19,37 @@
     </section>
     <section id="container">
         <form id="form">
-            <div class="module-containers" id="incomes-container">
-                <div class="module-container-scroll">
+            <div class="module-containers">
+                <div class="module-container-scroll" id="incomes-container">
                     <button type="button" class="default-button open-module-pannel-button">+</button>
                     <div class="module" id="salario">
                         <label>
                             Salario
                             <input type="number" class="number-input">
-                            <Button type="button" class="delte-module-button">Del</Button>
                         </label>
+                        <Button type="button" class="delte-module-button">Del</Button>
                     </div>
                 </div>
             </div>
-            <div class="module-containers" id="expenses-container">
-                <div class="module-container-scroll">
+            <div class="module-containers">
+                <div class="module-container-scroll" id="expenses-container">
                     <button type="button" class="default-button open-module-pannel-button">+</button>
                     <div class="module" id="arriendo">
                         <label>
                             Arriendo
                             <input type="number" class="number-input">
-                            <Button type="button" class="delte-module-button">Del</Button>
                         </label>
+                        <Button type="button" class="delte-module-button">Del</Button>
                     </div>
                 </div>
             </div>
         </form>
         <aside id="results-container">
-            <div id="final-result"></div>
+            <div id="final-result">
+                <span class="result-span" id="incomes-span-result">0</span>
+                <span class="result-span" id="expenses-span-result">0</span>
+                <span class="result-span" id="total-span-result">0</span>
+            </div>
             <div class="module-containers" id="percentages-container"></div>
         </aside>
     </section>

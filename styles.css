@@ -44,10 +44,12 @@ body{
     padding: 3% 5%;
     width: 70%;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     background-color: aliceblue;
 }
 .module > label{
-    width: 100%;
+    width: 70%;
     height: 100%;
     display: flex;
     justify-content: space-between;
@@ -132,7 +134,25 @@ form{
     grid-area: espenses;
     background-color: papayawhip;
 }
+
+/* ================================ results-container-section ================================ */
 #results-container{
     background-color: palegreen;
     grid-area: results;
+}
+#final-result{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    background-color: peru;
+}
+.result-span{
+    width: 4rem;
+    aspect-ratio: 2/1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: paleturquoise;
 }
