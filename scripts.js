@@ -1,72 +1,69 @@
-const addModuleContainer = document.getElementById('add-module-container')
-const openModulePannelButton = document.querySelectorAll('.open-module-pannel-button')
-let currentContainer = null
+const $addModuleContainer = document.querySelector('#add-module-container')
+const $body = document.querySelector('#body')
 
-openModulePannelButton.forEach(button => {
-    button.addEventListener('click', (event) => {
-        addModuleContainer.style.display = 'flex'
-        currentContainer = event.target.closest('.module-container-scroll')
-    })
-})
-
-function createModuleFunction(name){
+function createModule(name, data){
     const module = document.createElement('div')
-    const label = document.createElement('label')
-    const input = document.createElement('input')
-    const button = document.createElement('button')
-
     module.classList.add('module')
-    module.id = name.toLowerCase().trim().replace(/\s+/g, '-')
-    label.textContent = `${name}`
-    input.classList.add('number-input')
-    input.type = 'number'
-    button.classList.add('delte-module-button')
-    button.type = 'button'
-    button.textContent = 'Del'
-
-    label.appendChild(input)
-    module.append(label)
-    module.append(button)
-
+    module.dataset.name = data
+    module.innerHTML = `
+    <label>
+        ${name}
+        <input type="number" class="number-input">
+    </label>
+    <Button type="button" class="delte-module-button">🗑</Button>
+    `
     return module
 }
 
-const moduleNameInput = document.getElementById('module-name-input')
+function createPercentageModule(name, data){
+    const module = document.createElement('div')
+    module.classList.add('percentage-module')
+    module.dataset.name = data
+    module.innerHTML = `
+    <span>${name}</span>
+    <span>0%</span>
+    `
+    return module
+}
 
-document.getElementById('add-module-pannel').addEventListener('click', (event) => {
-    if(event.target.id === 'close-add-module-pannel-button'){
-        addModuleContainer.style.display = 'none'
-    }else if(event.target.id === 'add-module-button'){
-        currentContainer.appendChild(createModuleFunction(moduleNameInput.value))
-        addModuleContainer.style.display = 'none'
-        moduleNameInput.value = ''
+let incomes = [
+    {name: 'texto'},
+]
+let expenses = [
+    {name: 'nombre', dataset: 'nombre'},
+]
+
+let currentContainer = ''
+const $incomesContainer = document.querySelector('#incomes-container')
+const $expensesContainer = document.querySelector('#expenses-container')
+const $percentagesContainer = document.querySelector('#percentages-container')
+
+$body.addEventListener('click', (event) => {
+    
+    if(event.target.classList.contains('open-module-pannel-button')){
+        currentContainer = event.target.closest('div')
+        $addModuleContainer.style.display = 'flex'
+    }else if(event.target.id === 'close-add-module-pannel-button'){
+        $addModuleContainer.style.display = 'none'
     }
-})
-
-document.getElementById('form').addEventListener('click', (event) => {
-    if(event.target.classList.contains('delte-module-button')){
-        event.target.closest('.module').remove()
-    }
-})
-
-const incomesSpanResult = document.getElementById('incomes-span-result')
-const expensesSpanResult = document.getElementById('expenses-span-result')
-const totalSpanResult = document.getElementById('total-span-result')
-
-document.getElementById('form').addEventListener('input', () => {
-    let totalIncomes = 0
-    let totalExpenses = 0
-    document.querySelectorAll('.number-input').forEach( input => {
-        const container = input.closest('.module-container-scroll')
-        const value = Number(input.value) || 0
-
-        if(container.id === 'incomes-container'){
-            totalIncomes += value
-        }else if(container.id = 'expenses-container'){
-            totalExpenses += value
+    
+    if(event.target.id === 'add-module-button'){
+        const $moduleNameInput = document.querySelector('#module-name-input').value
+        if(currentContainer.id === 'incomes-container'){
+            incomes.push({name: $moduleNameInput})
+        }else if(currentContainer.id === 'expenses-container'){
+            expenses.push({name: $moduleNameInput, dataset: $moduleNameInput})
         }
-    })
-    incomesSpanResult.textContent = totalIncomes
-    expensesSpanResult.textContent = totalExpenses
-    totalSpanResult.textContent = incomesSpanResult.textContent - expensesSpanResult.textContent
+        incomes.forEach(obj => {
+            const module = createModule(obj.name)
+            $incomesContainer.append(module)
+        })
+        expenses.forEach(obj => {
+            const module = createModule(obj.name)
+            $expensesContainer.append(module)
+            const Pmodule = createPercentageModule(obj.name)
+            $percentagesContainer.append(Pmodule)
+        })
+    }
+    
 })

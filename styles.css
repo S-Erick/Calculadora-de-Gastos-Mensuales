@@ -24,10 +24,12 @@ body{
     width: 100%;
     height: 100%;
     display: flex;
+    flex-direction: column;
+    gap: 1%;
     overflow-y: scroll;
     position: relative;
-    /* align-items: center; */
-    justify-content: center;
+    align-items: center;
+    justify-content: start;
 }
 .module-container-scroll{
     width: 100%;
@@ -134,7 +136,10 @@ form{
     grid-area: espenses;
     background-color: papayawhip;
 }
-
+.delte-module-button{
+    padding: .1rem .5rem;
+    font-size: 1.2rem;
+}
 /* ================================ results-container-section ================================ */
 #results-container{
     background-color: palegreen;
@@ -155,4 +160,12 @@ form{
     justify-content: center;
     align-items: center;
     background-color: paleturquoise;
+}
+/* ================================ percentaje module ================================ */
+.percentage-module{
+    width: 100%;
+    padding: .5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    background-color: palegoldenrod;
 }

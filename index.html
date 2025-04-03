@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,17 +7,22 @@
     <title>Calculadora de Gastos Mensuales</title>
 </head>
 <body id="body">
+
     <section id="add-module-container">
-        <section id="add-module-pannel">
+        <div id="add-module-pannel">
             <button class="default-button" id="close-add-module-pannel-button">-</button>
             <label>
                 Agregar modulo
                 <input type="text" id="module-name-input">
             </label>
             <button id="add-module-button">Añadir modulo</button>
-        </section>
+        </div>
     </section>
+
+
     <section id="container">
+
+
         <form id="form">
             <div class="module-containers">
                 <div class="module-container-scroll" id="incomes-container">
@@ -27,7 +32,7 @@
                             Salario
                             <input type="number" class="number-input">
                         </label>
-                        <Button type="button" class="delte-module-button">Del</Button>
+                        <Button type="button" class="delte-module-button">🗑</Button>
                     </div>
                 </div>
             </div>
@@ -39,19 +44,28 @@
                             Arriendo
                             <input type="number" class="number-input">
                         </label>
-                        <Button type="button" class="delte-module-button">Del</Button>
+                        <Button type="button" class="delte-module-button">🗑</Button>
                     </div>
                 </div>
             </div>
         </form>
+
+
         <aside id="results-container">
             <div id="final-result">
                 <span class="result-span" id="incomes-span-result">0</span>
                 <span class="result-span" id="expenses-span-result">0</span>
                 <span class="result-span" id="total-span-result">0</span>
             </div>
-            <div class="module-containers" id="percentages-container"></div>
+            <div class="module-containers" id="percentages-container">
+                <div class="texto percentage-module">
+                    <span>texto</span>
+                    <span>10%</span>
+                </div>
+            </div>
         </aside>
+
+
     </section>
 
     <script src="scripts.js"></script>
