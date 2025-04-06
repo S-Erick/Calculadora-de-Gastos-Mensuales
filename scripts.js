@@ -1,45 +1,67 @@
-const $addModuleContainer = document.querySelector('#add-module-container')
+const incomes = [];
+const expenses = [];
 
-function createModule(name, data){
-    const module = document.createElement('div')
-    module.classList.add('module')
-    module.dataset.name = data
-    module.innerHTML = `
-    <label>
-        ${name}
-        <input type="number" class="number-input">
-    </label>
-    <Button type="button" class="delte-module-button">🗑</Button>
-    `
-    return module
+function addIncome() {
+  const desc = document.getElementById("income-description").value.trim();
+  const amount = parseFloat(document.getElementById("income-amount").value);
+  if (!desc || isNaN(amount) || amount <= 0) return;
+  incomes.push({ id: crypto.randomUUID(), desc, amount });
+  document.getElementById("income-description").value = "";
+  document.getElementById("income-amount").value = "";
+  render();
 }
 
-function createPercentageModule(name, data){
-    const module = document.createElement('div')
-    module.classList.add('percentage-module')
-    module.dataset.name = data
-    module.innerHTML = `
-    <span>${name}</span>
-    <span>0%</span>
-    `
-    return module
+function addExpense() {
+  const desc = document.getElementById("expense-description").value.trim();
+  const amount = parseFloat(document.getElementById("expense-amount").value);
+  if (!desc || isNaN(amount) || amount <= 0) return;
+  expenses.push({ id: crypto.randomUUID(), desc, amount });
+  document.getElementById("expense-description").value = "";
+  document.getElementById("expense-amount").value = "";
+  render();
 }
 
-let incomes = []
-let expenses = []
+function removeItem(arr, id) {
+  const index = arr.findIndex(item => item.id === id);
+  if (index !== -1) arr.splice(index, 1);
+}
 
-let currentContainer = ''
-const $incomesContainer = document.querySelector('#incomes-container')
-const $expensesContainer = document.querySelector('#expenses-container')
-const $percentagesContainer = document.querySelector('#percentages-container')
+function render() {
+  const incomeList = document.getElementById("income-list");
+  const expenseList = document.getElementById("expense-list");
+  const expensePercentages = document.getElementById("expense-percentages");
 
-document.body.addEventListener('click', (event) => {
-    
-    if(event.target.classList.contains('open-module-pannel-button')){
-        currentContainer = event.target.closest('div')
-        $addModuleContainer.style.display = 'flex'
-    }else if(event.target.id === 'close-add-module-pannel-button'){
-        $addModuleContainer.style.display = 'none'
-    }
-    
-})
+  incomeList.innerHTML = incomes.map(i => `
+    <div class="entry">
+      <span>${i.desc}</span>
+      <span>$${i.amount.toFixed(2)} <button onclick="removeIncome('${i.id}')">x</button></span>
+    </div>`).join("");
+
+  expenseList.innerHTML = expenses.map(e => `
+    <div class="entry">
+      <span>${e.desc}</span>
+      <span>$${e.amount.toFixed(2)} <button onclick="removeExpense('${e.id}')">x</button></span>
+    </div>`).join("");
+
+  const totalIncome = incomes.reduce((sum, i) => sum + i.amount, 0);
+  const totalExpense = expenses.reduce((sum, e) => sum + e.amount, 0);
+
+  document.getElementById("total-income").textContent = totalIncome.toFixed(2);
+  document.getElementById("total-expense").textContent = totalExpense.toFixed(2);
+  document.getElementById("total-percentage").textContent = totalIncome > 0 ? `${((totalExpense / totalIncome) * 100).toFixed(2)}%` : '0%';
+
+  expensePercentages.innerHTML = expenses.map(e => {
+    const percent = totalIncome > 0 ? ((e.amount / totalIncome) * 100).toFixed(2) : 0;
+    return `<div class="entry"><span>${e.desc}</span><span>${percent}%</span></div>`;
+  }).join("");
+}
+
+function removeIncome(id) {
+  removeItem(incomes, id);
+  render();
+}
+
+function removeExpense(id) {
+  removeItem(expenses, id);
+  render();
+}
